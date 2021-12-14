@@ -419,6 +419,39 @@ void Adafruit_GFX::drawTriangle(int16_t x0, int16_t y0,
     drawLine(x2, y2, x0, y0, color);
 }
 
+//Draw a lozenge
+void Adafruit_GFX::drawLozenge(int16_t x0, int16_t y0,
+        int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) {
+    drawLine(x0, y1, x1, y2, color);
+    drawLine(x0, y1, x1, y0, color);
+    drawLine(x2, y1, x1, y0, color);
+    drawLine(x2, y1, x1, y2, color);
+}
+
+//Draw a Pentagram
+void Adafruit_GFX::drawPentagram(int16_t x0, int16_t y0, int16_t r,
+                                 uint16_t color)
+{
+    int16_t x[5];
+    int16_t y[5];
+    x[0] = x0;
+    x[1] = x0 - r * cos(PI / 10);
+    x[2] = x0 - r * sin(PI / 5);
+    x[3] = x0 + r * sin(PI / 5);
+    x[4] = x0 + r * cos(PI / 10);
+    y[0] = y0 + r;
+    y[1] = y0 + r * sin(PI / 10);
+    y[2] = y0 - r * cos(PI / 5);
+    y[3] = y0 - r * cos(PI / 5);
+    y[4] = y0 + r * sin(PI / 10);
+    startWrite();
+    for (int i = 0; i < 5; i++)
+    {
+        drawLine(x[i], y[i], x[(i + 2) % 5], y[(i + 2) % 5], color);
+    }
+    endWrite();
+}
+
 // Fill a triangle
 void Adafruit_GFX::fillTriangle(int16_t x0, int16_t y0,
         int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color) {
